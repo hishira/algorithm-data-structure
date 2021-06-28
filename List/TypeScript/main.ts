@@ -8,12 +8,22 @@ class NodeElement<T>{
 
   }
 }
+class NodeElementDouble<T>{
+  public value:T;
+  public previous: NodeElementDouble<T>;
+  public next: NodeElementDouble<T>;
+  constructor(value:T){
+    this.value = value;
+    this.next = null;
+    this.previous = null
+  }
+}
 interface List<T>{
   append(value:T):void;
   print():void;
   removeLast():boolean;
   removeFirst():boolean;
-  removeAtPosition():boolean;
+  removeAtPosition(position:number):boolean;
   isEmpty():boolean;
   length():number;
   getFirstElement():T | null;
@@ -77,7 +87,7 @@ class LinkedList<T> implements List<T>{
     return true;
   }
 
-  public removeAtPosition(position:T):boolean{
+  public removeAtPosition(position:number):boolean{
     let is_int:boolean = Math.floor(position) === position
     if(!is_int ||
       (this.listlength - 1) < position ||
@@ -96,7 +106,7 @@ class LinkedList<T> implements List<T>{
     let count:number = 0;
     while(nodeTmp!== null){
       if(count === position){
-        let nextelement:Node<T> | null = nodeTmp.next;
+        let nextelement:NodeElement<T> | null = nodeTmp.next;
         previousNode.next = nextelement;
         return true;
       }
@@ -189,6 +199,27 @@ class ArrayList<T> implements List<T>{
     this._length -= 1
     return true;
   }
+  public removeAtPosition(position:number):boolean{
+    let is_int:boolean = Math.floor(position) === position
+    if(!is_int ||
+      (this._length - 1) < position ||
+      position < 0){
+      return false;
+    }if(position === 0){
+      this.removeFirst();
+      return true;
+    }
+    else if(position === this._length - 1){
+      this.removeLast();
+      return true;
+    }
+    for(let i = position;i<this._length - 1;i++){
+      this.elements[i] = this.elements[i+1];
+    }
+    this.elements.length-=1;
+    this._length-=1;
+    return true;
+  }
   public isEmpty():boolean{
     return this._length === 0;
   }
@@ -267,7 +298,65 @@ function ArrayListTests(lista:List<number>):void{
   removeLastFirstArrayTest(lista);
   getElementFromArrayListTest(lista);
 }
+function LinkedListRemoveAtFirstAndLastPosition(){
+  let lista:List<number> = new LinkedList<number>();
+  lista.append(10);
+  lista.append(25);
+  lista.append(45);
+  lista.append(90);
+  console.log("Delete first and last");
+  lista.print();
+  lista.removeAtPosition(0);
+  lista.removeAtPosition(lista.length()-1)
+  lista.print();
+}
+function RemoveValueFromPositionLinkedList():void{
+  let lista:List<number> = new LinkedList<number>();
+  lista.append(10);
+  lista.append(25);
+  lista.append(45);
+  lista.append(90);
+  console.log("Delete position 1");
+  lista.print();
+  lista.removeAtPosition(1);
+  lista.removeAtPosition(1);
+  lista.print();
+}
+function ArrayListRemoveAtFirstAndLastPosition(){
+  let lista:List<number> = new ArrayList<number>();
+  lista.append(10);
+  lista.append(25);
+  lista.append(45);
+  lista.append(90);
+  console.log("Delete first and last");
+  lista.print();
+  lista.removeAtPosition(0);
+  lista.removeAtPosition(lista.length()-1)
+  lista.print();
+}
+function RemoveValueFromPositionArrayList():void{
+  let lista:List<number> = new ArrayList<number>();
+  lista.append(10);
+  lista.append(25);
+  lista.append(45);
+  lista.append(90);
+  console.log("Delete position 1");
+  lista.print();
+  lista.removeAtPosition(1);
+  lista.removeAtPosition(1);
+  lista.print();
+}
+function RemovingFromArryList(){
+  ArrayListRemoveAtFirstAndLastPosition();
+  RemoveValueFromPositionArrayList();
+}
+function RemovingFromLinkedList(){
+  LinkedListRemoveAtFirstAndLastPosition();
+  RemoveValueFromPositionLinkedList();
+}
 let lista:List<number> = new LinkedList<number>();
 let arraylist:List<number> = new ArrayList<number>();
 //LinkedListTests(lista);
-ArrayListTests(arraylist);
+//ArrayListTests(arraylist);
+//RemovingFromLinkedList();
+RemovingFromArryList();

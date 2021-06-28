@@ -5,6 +5,14 @@ var NodeElement = /** @class */ (function () {
     }
     return NodeElement;
 }());
+var NodeElementDouble = /** @class */ (function () {
+    function NodeElementDouble(value) {
+        this.value = value;
+        this.next = null;
+        this.previous = null;
+    }
+    return NodeElementDouble;
+}());
 var LinkedList = /** @class */ (function () {
     function LinkedList() {
         this.head = null;
@@ -55,6 +63,35 @@ var LinkedList = /** @class */ (function () {
         this.head = this.head.next;
         this.listlength -= 1;
         return true;
+    };
+    LinkedList.prototype.removeAtPosition = function (position) {
+        var is_int = Math.floor(position) === position;
+        if (!is_int ||
+            (this.listlength - 1) < position ||
+            position < 0) {
+            return false;
+        }
+        if (position === 0) {
+            this.removeFirst();
+            return false;
+        }
+        else if (position === this.listlength - 1) {
+            this.removeLast();
+            return true;
+        }
+        var nodeTmp = this.head;
+        var previousNode = this.head;
+        var count = 0;
+        while (nodeTmp !== null) {
+            if (count === position) {
+                var nextelement = nodeTmp.next;
+                previousNode.next = nextelement;
+                return true;
+            }
+            count += 1;
+            previousNode = nodeTmp;
+            nodeTmp = nodeTmp.next;
+        }
     };
     LinkedList.prototype.print = function () {
         var s = "";
@@ -127,6 +164,28 @@ var ArrayList = /** @class */ (function () {
     };
     ArrayList.prototype.removeFirst = function () {
         for (var i = 0; i < this._length; i++) {
+            this.elements[i] = this.elements[i + 1];
+        }
+        this.elements.length -= 1;
+        this._length -= 1;
+        return true;
+    };
+    ArrayList.prototype.removeAtPosition = function (position) {
+        var is_int = Math.floor(position) === position;
+        if (!is_int ||
+            (this._length - 1) < position ||
+            position < 0) {
+            return false;
+        }
+        if (position === 0) {
+            this.removeFirst();
+            return true;
+        }
+        else if (position === this._length - 1) {
+            this.removeLast();
+            return true;
+        }
+        for (var i = position; i < this._length - 1; i++) {
             this.elements[i] = this.elements[i + 1];
         }
         this.elements.length -= 1;
@@ -209,7 +268,65 @@ function ArrayListTests(lista) {
     removeLastFirstArrayTest(lista);
     getElementFromArrayListTest(lista);
 }
+function LinkedListRemoveAtFirstAndLastPosition() {
+    var lista = new LinkedList();
+    lista.append(10);
+    lista.append(25);
+    lista.append(45);
+    lista.append(90);
+    console.log("Delete first and last");
+    lista.print();
+    lista.removeAtPosition(0);
+    lista.removeAtPosition(lista.length() - 1);
+    lista.print();
+}
+function RemoveValueFromPositionLinkedList() {
+    var lista = new LinkedList();
+    lista.append(10);
+    lista.append(25);
+    lista.append(45);
+    lista.append(90);
+    console.log("Delete position 1");
+    lista.print();
+    lista.removeAtPosition(1);
+    lista.removeAtPosition(1);
+    lista.print();
+}
+function ArrayListRemoveAtFirstAndLastPosition() {
+    var lista = new ArrayList();
+    lista.append(10);
+    lista.append(25);
+    lista.append(45);
+    lista.append(90);
+    console.log("Delete first and last");
+    lista.print();
+    lista.removeAtPosition(0);
+    lista.removeAtPosition(lista.length() - 1);
+    lista.print();
+}
+function RemoveValueFromPositionArrayList() {
+    var lista = new ArrayList();
+    lista.append(10);
+    lista.append(25);
+    lista.append(45);
+    lista.append(90);
+    console.log("Delete position 1");
+    lista.print();
+    lista.removeAtPosition(1);
+    lista.removeAtPosition(1);
+    lista.print();
+}
+function RemovingFromArryList() {
+    ArrayListRemoveAtFirstAndLastPosition();
+    RemoveValueFromPositionArrayList();
+}
+function RemovingFromLinkedList() {
+    LinkedListRemoveAtFirstAndLastPosition();
+    RemoveValueFromPositionLinkedList();
+}
 var lista = new LinkedList();
 var arraylist = new ArrayList();
 //LinkedListTests(lista);
-ArrayListTests(arraylist);
+//ArrayListTests(arraylist);
+//RemovingFromLinkedList();
+RemovingFromArryList();
