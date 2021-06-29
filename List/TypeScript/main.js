@@ -216,6 +216,44 @@ var ArrayList = /** @class */ (function () {
     };
     return ArrayList;
 }());
+var DoubleLinkedList = /** @class */ (function () {
+    function DoubleLinkedList() {
+        this.head = null;
+        this._length = 0;
+    }
+    DoubleLinkedList.prototype.append = function (value) {
+        var newnode = new NodeElementDouble(value);
+        if (this.head === null) {
+            this.head = newnode;
+            return;
+        }
+        var nodeTmp = this.head;
+        while (nodeTmp.next !== null) {
+            nodeTmp = nodeTmp.next;
+        }
+        nodeTmp.next = newnode;
+        nodeTmp.next.previous = nodeTmp;
+    };
+    DoubleLinkedList.prototype.print = function () {
+        var nodeTmp = this.head;
+        var s = "";
+        while (nodeTmp !== null) {
+            s += nodeTmp.value + " ";
+            nodeTmp = nodeTmp.next;
+        }
+        console.log(s);
+    };
+    DoubleLinkedList.prototype.removeLast = function () { return true; };
+    DoubleLinkedList.prototype.removeFirst = function () { return true; };
+    DoubleLinkedList.prototype.removeAtPosition = function (position) { return true; };
+    DoubleLinkedList.prototype.isEmpty = function () { return true; };
+    DoubleLinkedList.prototype.length = function () { return 0; };
+    DoubleLinkedList.prototype.getFirstElement = function () { return null; };
+    DoubleLinkedList.prototype.getLastElement = function () { return null; };
+    DoubleLinkedList.prototype.getElementAtPosition = function (position) { return null; };
+    return DoubleLinkedList;
+}());
+;
 function appendToListTest(lista) {
     lista.append(10);
     lista.append(12);
@@ -324,9 +362,20 @@ function RemovingFromLinkedList() {
     LinkedListRemoveAtFirstAndLastPosition();
     RemoveValueFromPositionLinkedList();
 }
+function DoubleLinkedListAppendTest(lista) {
+    lista.append(45);
+    lista.append(56);
+    lista.append(78);
+    lista.print();
+}
+function DoubleLinkedListTests() {
+    var lista = new DoubleLinkedList();
+    DoubleLinkedListAppendTest(lista);
+}
 var lista = new LinkedList();
 var arraylist = new ArrayList();
 //LinkedListTests(lista);
 //ArrayListTests(arraylist);
 //RemovingFromLinkedList();
-RemovingFromArryList();
+//RemovingFromArryList();
+DoubleLinkedListTests();

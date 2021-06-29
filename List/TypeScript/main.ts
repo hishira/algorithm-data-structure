@@ -1,4 +1,3 @@
-
 class NodeElement<T>{
   public value:T;
   public next:NodeElement<T>;
@@ -244,6 +243,44 @@ class ArrayList<T> implements List<T>{
     return this.elements[position]
   }
 }
+class DoubleLinkedList<T> implements List<T>{
+  private head:NodeElementDouble<T>;
+  private _length:number;
+  constructor(){
+    this.head = null;
+    this._length = 0;
+  }
+  public append(value:T):void{
+    let newnode: NodeElementDouble<T> = new NodeElementDouble<T>(value);
+    if(this.head === null){
+      this.head = newnode;
+      return;
+    }
+    let nodeTmp:NodeElementDouble<T> = this.head;
+    while(nodeTmp.next !== null){
+      nodeTmp = nodeTmp.next;
+    }
+    nodeTmp.next = newnode;
+    nodeTmp.next.previous = nodeTmp
+  }
+  public print():void{
+    let nodeTmp:NodeElementDouble<T> = this.head;
+    let s:string = "";
+    while( nodeTmp!== null ){
+      s+=nodeTmp.value+" ";
+      nodeTmp = nodeTmp.next;
+    }
+    console.log(s);
+  }
+  public removeLast():boolean{return true;}
+  public removeFirst():boolean{return true;}
+  public removeAtPosition(position:number):boolean{return true;}
+  public isEmpty():boolean{return true;}
+  public length():number{return 0;}
+  public getFirstElement():T | null {return null;}
+  public getLastElement():T | null {return null}
+  public getElementAtPosition(position:number): T | null{return null;}
+};
 function appendToListTest(lista:List<number>){
   lista.append(10);
   lista.append(12);
@@ -354,9 +391,20 @@ function RemovingFromLinkedList(){
   LinkedListRemoveAtFirstAndLastPosition();
   RemoveValueFromPositionLinkedList();
 }
+function DoubleLinkedListAppendTest(lista:List<number>):void{
+  lista.append(45);
+  lista.append(56);
+  lista.append(78);
+  lista.print();
+}
+function DoubleLinkedListTests() {
+  let lista: DoubleLinkedList<number> = new DoubleLinkedList<number>();
+  DoubleLinkedListAppendTest(lista)
+}
 let lista:List<number> = new LinkedList<number>();
 let arraylist:List<number> = new ArrayList<number>();
 //LinkedListTests(lista);
 //ArrayListTests(arraylist);
 //RemovingFromLinkedList();
-RemovingFromArryList();
+//RemovingFromArryList();
+DoubleLinkedListTests();
