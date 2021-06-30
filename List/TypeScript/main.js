@@ -309,11 +309,54 @@ var DoubleLinkedList = /** @class */ (function () {
         this._length -= 1;
         return true;
     };
-    DoubleLinkedList.prototype.isEmpty = function () { return true; };
-    DoubleLinkedList.prototype.length = function () { return 0; };
-    DoubleLinkedList.prototype.getFirstElement = function () { return null; };
-    DoubleLinkedList.prototype.getLastElement = function () { return null; };
-    DoubleLinkedList.prototype.getElementAtPosition = function (position) { return null; };
+    DoubleLinkedList.prototype.isEmpty = function () {
+        return this._length === 0;
+    };
+    DoubleLinkedList.prototype.length = function () {
+        return this._length;
+    };
+    DoubleLinkedList.prototype.getFirstElement = function () {
+        if (this.head === null)
+            return null;
+        return this.head.value;
+    };
+    DoubleLinkedList.prototype.getLastElement = function () {
+        if (this.head === null)
+            return null;
+        var nodetmp = this.head;
+        while (nodetmp.next !== null)
+            nodetmp = nodetmp.next;
+        return nodetmp.value;
+    };
+    DoubleLinkedList.prototype.getElementAtPosition = function (position) {
+        if (this.head === null)
+            return null;
+        var is_int = Math.floor(position) === position;
+        if (!is_int ||
+            (this._length - 1) < position ||
+            position < 0) {
+            return null;
+        }
+        if (this.head === null) {
+            return null;
+        }
+        if (position === 0)
+            return this.getFirstElement();
+        if (position === this._length - 1)
+            return this.getLastElement();
+        var nodetmp = this.head;
+        var breakflag = true;
+        var counter = 0;
+        while (breakflag && nodetmp.next !== null) {
+            nodetmp = nodetmp.next;
+            counter += 1;
+            if (counter === position)
+                breakflag = false;
+        }
+        if (nodetmp.next === null)
+            return null;
+        return nodetmp.value;
+    };
     return DoubleLinkedList;
 }());
 ;
@@ -473,12 +516,39 @@ function DoubleLinkedListRemoveAtPositionTests() {
     lista.removeAtPosition(2);
     lista.print();
 }
+function DoubleLinkedListLengthAndEmptyTests() {
+    console.log("Check length and empty");
+    var lista = new DoubleLinkedList();
+    lista.append(40);
+    lista.append(50);
+    lista.append(60);
+    lista.append(70);
+    lista.append(80);
+    console.log("Double linkedlist length " + lista.length());
+    console.log("Double linkedlist is empty " + lista.isEmpty());
+}
+function DeoubleLinkedListGetElementTests() {
+    console.log("Get element from double linked lists");
+    var lista = new DoubleLinkedList();
+    lista.append(40);
+    lista.append(50);
+    lista.append(60);
+    lista.append(70);
+    lista.append(80);
+    lista.print();
+    console.log("First element " + lista.getFirstElement());
+    console.log("First element " + lista.getLastElement());
+    console.log("Element at 1 index " + lista.getElementAtPosition(1));
+    console.log("Element at 2 index " + lista.getElementAtPosition(2));
+}
 function DoubleLinkedListTests() {
     var lista = new DoubleLinkedList();
     DoubleLinkedListAppendTest(lista);
     DoubleLinkedListRemoveLastTests();
     DoubleLinkedListRemoveFirstTests();
     DoubleLinkedListRemoveAtPositionTests();
+    DoubleLinkedListLengthAndEmptyTests();
+    DeoubleLinkedListGetElementTests();
 }
 //let lista:List<number> = new LinkedList<number>();
 //let arraylist:List<number> = new ArrayList<number>();

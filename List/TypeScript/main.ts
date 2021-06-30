@@ -337,11 +337,53 @@ class DoubleLinkedList<T> implements List<T>{
     this._length -= 1;
     return true;
   }
-  public isEmpty():boolean{return true;}
-  public length():number{return 0;}
-  public getFirstElement():T | null {return null;}
-  public getLastElement():T | null {return null}
-  public getElementAtPosition(position:number): T | null{return null;}
+  public isEmpty():boolean{
+    return this._length === 0;
+  }
+  public length():number{
+    return this._length;
+  }
+  public getFirstElement():T | null {
+    if(this.head === null)
+      return null;
+    return this.head.value;
+  }
+  public getLastElement():T | null {
+    if(this.head === null)
+      return null
+    let nodetmp:NodeElementDouble<T> = this.head;
+    while(nodetmp.next!==null) nodetmp = nodetmp.next;
+    return nodetmp.value;
+  }
+  public getElementAtPosition(position:number): T | null{
+    if(this.head === null)
+      return null;
+    let is_int:boolean = Math.floor(position) === position
+    if(!is_int ||
+        (this._length - 1) < position ||
+        position < 0){
+      return null;
+    }
+    if(this.head === null){
+      return null;
+    }
+    if(position === 0)
+      return this.getFirstElement();
+    if(position === this._length - 1)
+      return this.getLastElement();
+    let nodetmp: NodeElementDouble<T> = this.head;
+    let breakflag: boolean = true;
+    let counter:number = 0;
+    while(breakflag && nodetmp.next!== null){
+      nodetmp = nodetmp.next;
+      counter+=1;
+      if(counter === position) 
+      breakflag = false;
+    }
+    if(nodetmp.next === null)
+      return null;
+    return nodetmp.value;
+  }
 };
 function appendToListTest(lista:List<number>){
   lista.append(10);
@@ -501,13 +543,42 @@ function DoubleLinkedListRemoveAtPositionTests():void{
   lista.removeAtPosition(2);
   lista.print();
 }
+function DoubleLinkedListLengthAndEmptyTests():void{
+  console.log("Check length and empty");
+  let lista:DoubleLinkedList<number> = new DoubleLinkedList<number>();
+  lista.append(40);
+  lista.append(50);
+  lista.append(60);
+  lista.append(70);
+  lista.append(80);
+  console.log(`Double linkedlist length ${lista.length()}`)
+  console.log(`Double linkedlist is empty ${lista.isEmpty()}`)
+}
+function DeoubleLinkedListGetElementTests():void{
+  console.log("Get element from double linked lists");
+  let lista:DoubleLinkedList<number> = new DoubleLinkedList<number>();
+  lista.append(40);
+  lista.append(50);
+  lista.append(60);
+  lista.append(70);
+  lista.append(80);
+  lista.print();
+  console.log(`First element ${lista.getFirstElement()}`);
+  console.log(`First element ${lista.getLastElement()}`);
+  console.log(`Element at 1 index ${lista.getElementAtPosition(1)}`);
+  console.log(`Element at 2 index ${lista.getElementAtPosition(2)}`);
+
+}
 function DoubleLinkedListTests() {
   let lista: DoubleLinkedList<number> = new DoubleLinkedList<number>();
   DoubleLinkedListAppendTest(lista)
   DoubleLinkedListRemoveLastTests();
   DoubleLinkedListRemoveFirstTests();
   DoubleLinkedListRemoveAtPositionTests();
+  DoubleLinkedListLengthAndEmptyTests();
+  DeoubleLinkedListGetElementTests();
 }
+
 //let lista:List<number> = new LinkedList<number>();
 //let arraylist:List<number> = new ArrayList<number>();
 //LinkedListTests(lista);
