@@ -225,6 +225,7 @@ var DoubleLinkedList = /** @class */ (function () {
         var newnode = new NodeElementDouble(value);
         if (this.head === null) {
             this.head = newnode;
+            this._length += 1;
             return;
         }
         var nodeTmp = this.head;
@@ -233,6 +234,7 @@ var DoubleLinkedList = /** @class */ (function () {
         }
         nodeTmp.next = newnode;
         nodeTmp.next.previous = nodeTmp;
+        this._length += 1;
     };
     DoubleLinkedList.prototype.print = function () {
         var nodeTmp = this.head;
@@ -249,12 +251,14 @@ var DoubleLinkedList = /** @class */ (function () {
         }
         if (this.head.next === null) {
             this.head = null;
+            this._length -= 1;
             return true;
         }
         var nextnode = this.head;
         while (nextnode.next !== null)
             nextnode = nextnode.next;
         nextnode.previous.next = null;
+        this._length -= 1;
         return true;
     };
     DoubleLinkedList.prototype.removeFirst = function () {
@@ -263,12 +267,48 @@ var DoubleLinkedList = /** @class */ (function () {
         }
         if (this.head.next === null) {
             this.head = null;
+            this._length -= 1;
             return true;
         }
         this.head = this.head.next;
+        this._length -= 1;
         return true;
     };
-    DoubleLinkedList.prototype.removeAtPosition = function (position) { return true; };
+    DoubleLinkedList.prototype.removeAtPosition = function (position) {
+        var is_int = Math.floor(position) === position;
+        if (!is_int ||
+            (this._length - 1) < position ||
+            position < 0) {
+            return false;
+        }
+        if (this.head === null)
+            return false;
+        if (position === 0) {
+            this.removeFirst();
+            this._length -= 1;
+            return true;
+        }
+        if (position === this._length - 1) {
+            this.removeLast();
+            this._length -= 1;
+            return true;
+        }
+        var count = 0;
+        var nodetmp = this.head;
+        var breakflag = true;
+        while (breakflag && nodetmp !== null) {
+            nodetmp = nodetmp.next;
+            count += 1;
+            if (count === position)
+                breakflag = false;
+        }
+        if (nodetmp === null)
+            return false;
+        nodetmp.previous.next = nodetmp.next;
+        nodetmp = null;
+        this._length -= 1;
+        return true;
+    };
     DoubleLinkedList.prototype.isEmpty = function () { return true; };
     DoubleLinkedList.prototype.length = function () { return 0; };
     DoubleLinkedList.prototype.getFirstElement = function () { return null; };
@@ -418,11 +458,27 @@ function DoubleLinkedListRemoveFirstTests() {
     lista.removeFirst();
     lista.print();
 }
+function DoubleLinkedListRemoveAtPositionTests() {
+    console.log("Remove at position 1 and 2 element on list");
+    var lista = new DoubleLinkedList();
+    lista.append(40);
+    lista.append(50);
+    lista.append(60);
+    lista.append(70);
+    lista.append(80);
+    console.log("Double linked list before remove");
+    lista.print();
+    console.log("Double linked list after remove");
+    lista.removeAtPosition(1);
+    lista.removeAtPosition(2);
+    lista.print();
+}
 function DoubleLinkedListTests() {
     var lista = new DoubleLinkedList();
     DoubleLinkedListAppendTest(lista);
     DoubleLinkedListRemoveLastTests();
     DoubleLinkedListRemoveFirstTests();
+    DoubleLinkedListRemoveAtPositionTests();
 }
 //let lista:List<number> = new LinkedList<number>();
 //let arraylist:List<number> = new ArrayList<number>();
