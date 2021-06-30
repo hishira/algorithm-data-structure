@@ -257,7 +257,17 @@ var DoubleLinkedList = /** @class */ (function () {
         nextnode.previous.next = null;
         return true;
     };
-    DoubleLinkedList.prototype.removeFirst = function () { return true; };
+    DoubleLinkedList.prototype.removeFirst = function () {
+        if (this.head === null) {
+            return false;
+        }
+        if (this.head.next === null) {
+            this.head = null;
+            return true;
+        }
+        this.head = this.head.next;
+        return true;
+    };
     DoubleLinkedList.prototype.removeAtPosition = function (position) { return true; };
     DoubleLinkedList.prototype.isEmpty = function () { return true; };
     DoubleLinkedList.prototype.length = function () { return 0; };
@@ -395,13 +405,27 @@ function DoubleLinkedListRemoveLastTests() {
     lista.removeLast();
     lista.print();
 }
+function DoubleLinkedListRemoveFirstTests() {
+    console.log("Remove first element on list");
+    var lista = new DoubleLinkedList();
+    lista.append(40);
+    lista.append(50);
+    lista.append(60);
+    console.log("Double linked list before remove");
+    lista.print();
+    console.log("Double linked list after remove");
+    lista.removeFirst();
+    lista.removeFirst();
+    lista.print();
+}
 function DoubleLinkedListTests() {
     var lista = new DoubleLinkedList();
     DoubleLinkedListAppendTest(lista);
     DoubleLinkedListRemoveLastTests();
+    DoubleLinkedListRemoveFirstTests();
 }
-var lista = new LinkedList();
-var arraylist = new ArrayList();
+//let lista:List<number> = new LinkedList<number>();
+//let arraylist:List<number> = new ArrayList<number>();
 //LinkedListTests(lista);
 //ArrayListTests(arraylist);
 //RemovingFromLinkedList();
