@@ -272,7 +272,19 @@ class DoubleLinkedList<T> implements List<T>{
     }
     console.log(s);
   }
-  public removeLast():boolean{return true;}
+  public removeLast():boolean{
+    if(this.head === null){
+      return false;
+    }
+    if(this.head.next === null){
+      this.head = null;
+      return true;
+    }
+    let nextnode:NodeElementDouble<T> = this.head;
+    while(nextnode.next !== null) nextnode = nextnode.next;
+    nextnode.previous.next = null;
+    return true;
+  }
   public removeFirst():boolean{return true;}
   public removeAtPosition(position:number):boolean{return true;}
   public isEmpty():boolean{return true;}
@@ -392,14 +404,30 @@ function RemovingFromLinkedList(){
   RemoveValueFromPositionLinkedList();
 }
 function DoubleLinkedListAppendTest(lista:List<number>):void{
+  console.log("Append test on double linked list");
   lista.append(45);
   lista.append(56);
   lista.append(78);
   lista.print();
 }
+function DoubleLinkedListRemoveLastTests():void{
+  console.log("Remove last element on list");
+  let lista:DoubleLinkedList<number> = new DoubleLinkedList<number>();
+  lista.append(40);
+  lista.append(50);
+  lista.append(60);
+  console.log("Double linked list before remove");
+  lista.print();
+  console.log("Double linked list after remove");
+  lista.removeLast();
+  lista.removeLast();
+
+  lista.print();
+}
 function DoubleLinkedListTests() {
   let lista: DoubleLinkedList<number> = new DoubleLinkedList<number>();
   DoubleLinkedListAppendTest(lista)
+  DoubleLinkedListRemoveLastTests();
 }
 let lista:List<number> = new LinkedList<number>();
 let arraylist:List<number> = new ArrayList<number>();
