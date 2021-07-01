@@ -34,8 +34,11 @@ export class ListStack<T> implements Stack<T>{
         let returnvalue: T = this.tail.GetValue();
         let prev: NodeElement<T> = this.tail.previous;
         if (prev === null) {
+            let val:T = this.head.GetValue();
             this.head = null;
             this.tail = null;
+            this._length-=1;
+            return val;
         }
         this.tail = prev;
         this.tail.next = null;
