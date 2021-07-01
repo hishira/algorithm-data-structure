@@ -25,7 +25,11 @@ function listastacktests() {
 
 function arraystacktests() {
     let arrstack: ArrayStack<number> = new ArrayStack<number>(20);
-    console.log(arrstack.getArray());
+    arrstack.push(10);
+    arrstack.push(40);
+    arrstack.push(50);
+    arrstack.push(60);
+    arrstack.print();
 }
 
 arraystacktests();
