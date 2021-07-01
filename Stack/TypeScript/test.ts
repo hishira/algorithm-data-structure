@@ -25,11 +25,16 @@ function listastacktests() {
 
 function arraystacktests() {
     let arrstack: ArrayStack<number> = new ArrayStack<number>(20);
+    // Array stack push tests
     arrstack.push(10);
     arrstack.push(40);
     arrstack.push(50);
     arrstack.push(60);
     arrstack.print();
+    // Array peek tests
+    console.log(`Arraystack peek test: ${arrstack.peek()}`);
+    // Arr pop tests
+    while (!arrstack.isEmpty()) console.log(arrstack.pop())
 }
 
 arraystacktests();
