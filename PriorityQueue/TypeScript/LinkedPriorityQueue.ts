@@ -74,9 +74,13 @@ export class LinkedPriorityQueue<T> implements PriorityQueue<T>{
         this._length += 1;
         return true;
     }
-    public maximum(): T { return null; }
+    public maximum(): T {
+        return this.head === null ? null : this.head.GetValue();
+    }
 
-    public minimum(): T { return null; }
+    public minimum(): T {
+        return this.tail === null ? null : this.tail.GetValue();
+    }
 
     public extract_max(): T { return null }
 
