@@ -21,4 +21,15 @@ queue.print();
 console.log(queue.length());
 console.log(`Max value: ${queue.maximum()}`);
 console.log(`Min value: ${queue.minimum()}`);
+console.log("Removing from queue maximum");
+console.log(`Queue length ${queue.length()}`);
+queue.extract_max();
+queue.extract_max();
+console.log("After removing");
+queue.print();
+console.log(`Queue length ${queue.length()}`);
+console.log("Increasing and decreasing priority value in queue");
+queue.insert(30,20);
+queue.insert(42,-10);
+queue.print();
 

@@ -46,7 +46,6 @@ export class LinkedPriorityQueue<T> implements PriorityQueue<T>{
         let flag: boolean = false;
         while (nodemtp.next !== null) {
             if (newnode.GetPriority() > nodemtp.GetPriority()) {
-                console.log("yes");
                 let prevElement: NodeElement<T> = nodemtp.previous;
                 nodemtp.previous = null;
                 prevElement.next = newnode;
@@ -82,9 +81,55 @@ export class LinkedPriorityQueue<T> implements PriorityQueue<T>{
         return this.tail === null ? null : this.tail.GetValue();
     }
 
-    public extract_max(): T { return null }
+    public extract_max(): T { 
+        if (this.head === null) return null;
+        let tmpheadvalue: T= this.head.GetValue();
+        this.head = this.head.next;
+        this._length -= 1;
+        return tmpheadvalue;
+     }
 
-    public increase_key(element: T, priority: number): T { return null }
+    public increase_key(element: T, priority: number): T {
+        let tmpnode: NodeElement<T> = this.head;
+        let secondtmp:NodeElement<T> = this.head;
+        let nodetoreplace:NodeElement<T> = null;
+        let getflag: boolean = true;
+        while(getflag && tmpnode!==null){
+            if(tmpnode.GetValue() === element){
+                let nextelement:NodeElement<T> = tmpnode.next;
+                let prevelement:NodeElement<T> = tmpnode.previous
+                nodetoreplace = tmpnode;
+                nodetoreplace.previous = null;
+                nodetoreplace.next = null;
+                nodetoreplace.SetPriority(priority);
+                prevelement.next = nextelement;
+                nextelement.previous = prevelement;
+            }
+        } 
+        if(this.head.GetPriority() < nodetoreplace.GetPriority()){
+            nodetoreplace.next = this.head;
+            this.head.previous = nodetoreplace;
+            this.head = nodetoreplace;
+        }
+        if(tmpnode === null || nodetoreplace === null)    return null;
+        while(secondtmp !== null){
+            if(nodetoreplace.GetPriority() >secondtmp.GetPriority()){
+                let prevElement: NodeElement<T> = secondtmp.previous;
+                secondtmp.previous = null;
+                prevElement.next = nodetoreplace;
+                nodetoreplace.previous = prevElement;
+                nodetoreplace.next = secondtmp;
+                secondtmp.previous = nodetoreplace;
+                return nodetoreplace.GetValue();
+            }
+            if(secondtmp.next === null){
+                secondtmp.next = nodetoreplace;
+                nodetoreplace.previous = secondtmp;
+                this.tail = nodetoreplace;
+            }
+        }
+        return null
+    }
 
     public length(): number { return this._length; }
 
