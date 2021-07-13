@@ -28,7 +28,21 @@ export class Set<T> implements AbstractSet<T>{
     }
 
     public remove(elementtoremove: T): boolean {
-        return true;
+        let tmphead: SetNode<T> = this.head;
+        if(this.head.GetValue() === elementtoremove){
+            this.head = this.head.next;
+            return true;
+        }
+        while(tmphead!==null){
+            if(tmphead.GetValue() === elementtoremove){
+                let prev: SetNode<T> = tmphead.previous;
+                tmphead.previous.next = tmphead.next;
+                tmphead.next.previous = prev;
+                return true;
+            }
+            tmphead = tmphead.next;
+        }
+        return false;
     }
 
     public print():void{
