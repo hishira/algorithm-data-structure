@@ -18,3 +18,17 @@ set.print();
 set.remove(12)
 set.remove(90);
 set.print();
+
+//Enumarate
+
+console.log(set.enumerate());
+
+//is_element_of
+
+console.log(set.is_element_of(45));
+console.log(set.is_element_of(90));
+
+//Build function
+Set.build(1,2,3,4,5).print();
+Set.build("2","2","4").print();
+Set.build([1,2,3,4,3,2]).print();
