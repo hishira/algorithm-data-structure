@@ -88,6 +88,25 @@ export class Set<T> implements AbstractSet<T>{
         }
         return s
     }
+    public static union<T>(firstset:Set<T>, secondset:Set<T>):Set<T>{
+        let resultSet:Set<T> = new Set<T>();
+        let en1:Array<T> = firstset.enumerate().concat(secondset.enumerate())
+        for(let i in en1){
+            resultSet.add(en1[i]);
+        }
+        return resultSet;      
+    }
+    public static intersection<T>(firstset:Set<T>,secondset:Set<T>):Set<T>{
+        let arr1: T[] = firstset.enumerate();
+        let arr2: T[] = secondset.enumerate();
+        let arr3: T[] = new Array<T>();
+        for(let i=0;i<arr1.length;i++){
+            for(let j=0;j<arr2.length;j++)
+                if(arr1[i] === arr2[j])
+                    arr3.push(arr1[i])
+        }
+        return Set.build(...arr3);
+    }
     public print(): void {
         let allset: string = "";
         let tmphead: SetNode<T> = this.head;
