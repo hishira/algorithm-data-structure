@@ -49,3 +49,9 @@ let firstsettointersection: Set<number> = Set.build(-1,-2,-3,4,5,4,3);
 let secondsettointersection: Set<number> = Set.build(-1,-2,-3,-4,4,3,5,6,4);
 let inter: Set<number> = Set.intersection(firstsettointersection,secondsettointersection);
 inter.print();
+// Set difference
+
+let differ: Set<number> = Set.difference(firstsettointersection,secondsettointersection);
+differ.print();
+
+

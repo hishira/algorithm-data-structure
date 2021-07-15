@@ -97,15 +97,40 @@ export class Set<T> implements AbstractSet<T>{
         return resultSet;      
     }
     public static intersection<T>(firstset:Set<T>,secondset:Set<T>):Set<T>{
+        // Can be implement better
         let arr1: T[] = firstset.enumerate();
         let arr2: T[] = secondset.enumerate();
         let arr3: T[] = new Array<T>();
-        for(let i=0;i<arr1.length;i++){
+        for(let i = 0; i < arr1.length; i++){
             for(let j=0;j<arr2.length;j++)
                 if(arr1[i] === arr2[j])
                     arr3.push(arr1[i])
         }
         return Set.build(...arr3);
+    }
+    public static difference<T>(firstset:Set<T>, secondset:Set<T>):Set<T>{
+        // Can be implement better
+        let arr1: T[] = firstset.enumerate();
+        let arr2: T[] = secondset.enumerate();
+        let arr3: T[] = new Array<T>();
+        for(let i = 0;i < arr1.length; i++){
+            let flag:boolean = false;
+            for(let j = 0; j < arr2.length; j++){
+                if(arr1[i] === arr2[j])
+                    flag = true;
+            }
+            if(!flag) arr3.push(arr1[i]);
+        }
+        for(let i = 0;i < arr2.length; i++){
+            let flag:boolean = false;
+            for(let j = 0; j < arr1.length; j++){
+                if(arr1[j] === arr2[i])
+                    flag = true;
+            }
+            if(!flag) arr3.push(arr2[i]);
+        }
+        return Set.build(...arr3);
+
     }
     public print(): void {
         let allset: string = "";
