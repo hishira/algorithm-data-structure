@@ -114,7 +114,7 @@ export class Set<T> implements AbstractSet<T>{
         let arr2: T[] = secondset.enumerate();
         let arr3: T[] = new Array<T>();
         for(let i = 0;i < arr1.length; i++){
-            let flag:boolean = false;
+            let flag: boolean = false;
             for(let j = 0; j < arr2.length; j++){
                 if(arr1[i] === arr2[j])
                     flag = true;
@@ -122,7 +122,7 @@ export class Set<T> implements AbstractSet<T>{
             if(!flag) arr3.push(arr1[i]);
         }
         for(let i = 0;i < arr2.length; i++){
-            let flag:boolean = false;
+            let flag: boolean = false;
             for(let j = 0; j < arr1.length; j++){
                 if(arr1[j] === arr2[i])
                     flag = true;
@@ -131,6 +131,27 @@ export class Set<T> implements AbstractSet<T>{
         }
         return Set.build(...arr3);
 
+    }
+    public static subset<T>(firstset:Set<T>, secondset: Set<T>):boolean{
+        /**
+         * Check if @secondset is subset of @firstset
+         */
+        if(firstset.length >= secondset.length ){
+            let arr1:T[] = firstset.enumerate();
+            let arr2:T[] = secondset.enumerate();
+            for(let i=0;i<arr2.length;i++){
+                let flag: boolean = false;
+                for(let j=0;j<arr1.length;j++){
+                    if(arr1[j]===arr2[i])
+                        flag = true;
+                }
+                if(!flag)
+                    return false;
+            }
+            return true;
+        }else {
+            return false
+        }
     }
     public print(): void {
         let allset: string = "";

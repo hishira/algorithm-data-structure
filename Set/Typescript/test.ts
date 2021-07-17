@@ -1,6 +1,6 @@
-import {Set} from "./Set"
+import { Set } from "./Set"
 
-const set:Set<number> = new Set<number>();
+const set: Set<number> = new Set<number>();
 
 console.log("Adding element to set");
 
@@ -29,29 +29,38 @@ console.log(set.is_element_of(45));
 console.log(set.is_element_of(90));
 
 // Build function
-Set.build(1,2,3,4,5).print();
-Set.build("2","2","4").print();
-Set.build([1,2,3,4,3,2]).print();
+Set.build(1, 2, 3, 4, 5).print();
+Set.build("2", "2", "4").print();
+Set.build([1, 2, 3, 4, 3, 2]).print();
 
 // Union
 
-let firstsettounion: Set<Number> = Set.build(1,2,3,4);
+let firstsettounion: Set<Number> = Set.build(1, 2, 3, 4);
 
-let secondsettounion: Set<Number> = Set.build(3,4,5,6,7);
+let secondsettounion: Set<Number> = Set.build(3, 4, 5, 6, 7);
 
-let finalSet:Set<Number> = Set.union(firstsettounion,secondsettounion);
+let finalSet: Set<Number> = Set.union(firstsettounion, secondsettounion);
 finalSet.print();
 
 
 // Set intersection
 
-let firstsettointersection: Set<number> = Set.build(-1,-2,-3,4,5,4,3);
-let secondsettointersection: Set<number> = Set.build(-1,-2,-3,-4,4,3,5,6,4);
-let inter: Set<number> = Set.intersection(firstsettointersection,secondsettointersection);
+let firstsettointersection: Set<number> = Set.build(-1, -2, -3, 4, 5, 4, 3);
+let secondsettointersection: Set<number> = Set.build(-1, -2, -3, -4, 4, 3, 5, 6, 4);
+let inter: Set<number> = Set.intersection(firstsettointersection, secondsettointersection);
 inter.print();
+
 // Set difference
 
-let differ: Set<number> = Set.difference(firstsettointersection,secondsettointersection);
+let differ: Set<number> = Set.difference(firstsettointersection, secondsettointersection);
 differ.print();
+
+// Set subset
+
+let firstsettosubset: Set<number> = Set.build(1, 2, 3, 4, 5, 3)
+let secondsettosubset: Set<number> = Set.build(1, 2, 3, 2)
+console.log(Set.subset(firstsettosubset, secondsettosubset));
+
+console.log(Set.subset(secondsettosubset,firstsettosubset));
 
 
