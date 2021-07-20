@@ -204,4 +204,14 @@ function DoubleLinkedListTests() {
 //ArrayListTests(arraylist);
 //RemovingFromLinkedList();
 //RemovingFromArryList();
-DoubleLinkedListTests();
+//DoubleLinkedListTests();
+let list:LinkedList<number> = new LinkedList<number>();
+
+list.append(12);
+list.append(23);
+list.append(43);
+list.append(54);
+list.append(65);
+list.print();
+list.reverse();
+list.print();

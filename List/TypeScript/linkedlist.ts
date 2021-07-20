@@ -130,5 +130,28 @@ export class LinkedList<T> implements List<T>{
         }
         return null;
     }
+    public reverse(): boolean{
+        let current: NodeElement<T> = this.head;
+        let next: NodeElement<T> = this.head.next;
+        current.next = null;
+        while(next !== null){
+            let prev:NodeElement<T> = current;
+            let nextnext = next.next;
+            current = next;
+            current.next = prev
+            next = nextnext;
+        }
+        this.head = current;
+        return true;
+    }
+    public enumerate():T[]{
+        let res:T[] = []
+        let tmpNode: NodeElement<T> = this.head;
+        while(tmpNode!==null) {
+            res.push(tmpNode.value);
+            tmpNode = tmpNode.next;
+        }
+        return res;
+    }
 
 }
