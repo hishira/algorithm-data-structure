@@ -1,5 +1,6 @@
 import { AbstractSet } from "./AbstractSet";
 import { SetNode } from "./SetNode";
+
 export class Set<T> implements AbstractSet<T>{
 
     private head: SetNode<T>;
