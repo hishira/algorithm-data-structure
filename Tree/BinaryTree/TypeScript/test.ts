@@ -19,3 +19,5 @@ bt.insert(new Number(19))
 bt.insert(new Number(2))
 bt.insert(new Number(3))
 bt.print();
+console.log(`Maximum value ${bt.maximum().element}`);
+console.log(`Minimum value ${bt.minimum().element}`);

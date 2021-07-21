@@ -21,13 +21,27 @@ export class BinaryTree<T extends Comperable<T>>{
         let parrent: TreeElement<T> = null
         while (tmproot !== null) {
             parrent = tmproot;
-            if (tmproot.GetValue().equals(newelement) === 1)
+            if (tmproot.GetValue().equals(newelement) === -1)
                 tmproot = tmproot.right;
             else tmproot = tmproot.left;
         }
-        if (parrent.GetValue().equals(newelement) === 1) parrent.right = new TreeElement<T>(newelement);
+        if (parrent.GetValue().equals(newelement) === -1) parrent.right = new TreeElement<T>(newelement);
         else parrent.left = new TreeElement<T>(newelement);
         return true;
+    }
+    public maximum():T{
+        let rootmp: TreeElement<T> = this.root;
+        while(rootmp.right!==null){
+            rootmp = rootmp.right;
+        }
+        return rootmp.GetValue();
+    }
+    public minimum():T{
+        let rootmp: TreeElement<T> = this.root;
+        while(rootmp.left!==null){
+            rootmp = rootmp.left;
+        }
+        return rootmp.GetValue();
     }
     public print(): void {
         let roottmp: TreeElement<T> = this.root;
