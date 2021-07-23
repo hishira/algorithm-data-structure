@@ -29,6 +29,25 @@ export class BinaryTree<T extends Comperable<T>>{
         else parrent.left = new TreeElement<T>(newelement);
         return true;
     }
+    public removeElement(elementtoremove:T):boolean{
+        /* To implement */
+        /* let rootmp: TreeElement<T> = this.root;
+        let removeflag: boolean = true;
+        let parrent: TreeElement<T> = this.root;
+        let elementtoRemoveFromTree: TreeElement<T> = null
+        while(rootmp!==null && removeflag){
+            parrent = rootmp;
+            if(rootmp.GetValue().equals(elementtoremove)===0){
+                elementtoRemoveFromTree = rootmp;
+            }
+            if(rootmp.GetValue().equals(elementtoremove) === -1)
+                rootmp = rootmp.right;
+            else 
+                rootmp = rootmp.left;
+        }
+        return true; */
+        return true;
+    }
     public maximum():T{
         let rootmp: TreeElement<T> = this.root;
         while(rootmp.right!==null){
